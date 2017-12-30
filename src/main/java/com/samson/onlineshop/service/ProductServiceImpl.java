@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,8 +35,10 @@ public class ProductServiceImpl implements ProductService {
 
     public List<Product> getProductsByFilter(Map<String, List<String>> filterParams) {
 
-        //return productRepository.getProductsByCategoryAndManufacturer(filterParams);
-        return productRepository.findProductsByCategory(filterParams);
+        List<String> brands = new ArrayList(filterParams.get("brands"));
+        List<String> categories = new ArrayList(filterParams.get("categories"));
+
+        return productRepository.findProductsByCategoryInAndManufacturerIn(categories, brands);
     }
 
     public Product getProductById(String productId) {

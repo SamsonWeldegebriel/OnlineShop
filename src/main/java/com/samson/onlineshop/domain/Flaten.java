@@ -3,23 +3,23 @@ package com.samson.onlineshop.domain;
 import java.util.Arrays;
 
 public class Flaten {
-    static Integer[] output = new Integer[3];
-    static int j = 0;
+    private static Integer[] output = new Integer[3];
+    private static int j = 0;
     public static void main(String[] args) {
         System.out.println(Arrays.asList(flat(new Object[]{1,2,3})));
 
     }
 
-    public static Integer[] flat(Object[] input){
+    private static Integer[] flat(Object[] inputs){
 
 
 
-        for(int i=0; i< input.length; i++){
+        for(Object input: inputs){
 
-            if(input[i] instanceof Integer)
-                output[j++] = (Integer) input[i];
+            if(input instanceof Integer)
+                output[j++] = (Integer) input;
             else
-                flat(new Object[]{input[i]});
+                flat(new Object[]{input});
         }
 
         return output;

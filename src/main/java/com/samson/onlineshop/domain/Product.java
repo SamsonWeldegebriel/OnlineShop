@@ -1,12 +1,18 @@
 package com.samson.onlineshop.domain;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+@XmlRootElement
 @Entity
 //@Table(name = "products")
 public class Product implements Serializable {
@@ -25,6 +31,11 @@ public class Product implements Serializable {
 
     @Transient
     private String condition;
+
+
+    @JsonIgnore
+    @Transient
+    private MultipartFile productImage;
 
     public Product() {
         super();
@@ -116,6 +127,15 @@ public class Product implements Serializable {
 
     public void setCondition(String condition) {
         this.condition = condition;
+    }
+
+    @XmlTransient
+    public MultipartFile getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(MultipartFile productImage) {
+        this.productImage = productImage;
     }
 
     @Override

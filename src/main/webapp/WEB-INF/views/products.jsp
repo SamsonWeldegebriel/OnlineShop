@@ -19,11 +19,20 @@
 
 
 <c:forEach items="${products}" var="product">
-<h3>${product.name}</h3>
-<p>${product.description}</p>
-<p>${product.unitPrice}</p>
-<p>Available ${product.unitsInStock} units in stock.</p>
-<p><a href="<spring:url value="/market/product/?id=${product.productId}" />" > Details</a></p>
+
+    <div>
+        <img src="<c:url value="/img/${product.productId}.png"/>" alt="Product Image" style="width: 100%">
+    </div>
+
+    <h3>${product.name}</h3>
+    <p>${product.description}</p>
+    <p>${product.unitPrice}</p>
+    <p>Available ${product.unitsInStock} units in stock.</p>
+    <p><a href="<spring:url value="/market/product/?id=${product.productId}" />"> Details</a></p>
+
+
 </c:forEach>
+
+
 </body>
 </html>

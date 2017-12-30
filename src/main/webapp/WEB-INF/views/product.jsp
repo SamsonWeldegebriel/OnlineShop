@@ -14,16 +14,24 @@
 </head>
 <body>
 
+<section>
+    <div class="pull-right" style="padding-right:50px">
+        <a href="?language=en">English</a>|
+        <a href="?language=am">Amharic</a>
+    </div>
+</section>
+
 <h3>${product.name} </h3>
 <p>${product.description}</p>
-<p> Product Code: ${product.productId}</p>
-<p> UnitPrice: ${product.unitPrice} </p>
-<p> Manufacturer: ${product.manufacturer} </p>
-<p> Category: ${product.category}</p>
-<p> Units In Stock: ${product.unitsInStock} </p>
-<p> Units In Order: ${product.unitsInOrder} </p>
-<p> Discontinued: ${product.discontinued} </p>
-<p><a href="#"><b>Order Now!</b></a></p>
-<p><a href="<spring:url value="/market/products" />">Back</a> </p>
+<img src="<c:url value="/img/${product.productId}.png"/>" alt="Product Image" style="width: 100%">
+<p> <labe><spring:message code="product.productId.label"/> </labe> ${product.productId}</p>
+<p> <label><spring:message code="product.unitPrice.label"/></label> ${product.unitPrice} </p>
+<p> <label><spring:message code="product.manufacturer.label"/></label> ${product.manufacturer} </p>
+<p> <label><spring:message code="product.category.label"/></label> ${product.category}</p>
+<p> <label><spring:message code="product.unitsInStock.label"/></label>Units In Stock: ${product.unitsInStock} </p>
+<p> <label><spring:message code="product.unitsInOrder.label"/></label>Units In Order: ${product.unitsInOrder} </p>
+<p> <label><spring:message code="product.discontinued.label"/></label>Discontinued: ${product.discontinued} </p>
+<p><a href="#"><b><spring:message code="product.orderNow.button"/></b></a></p>
+<p><a href="<spring:url value="/market/products" />"><spring:message code="product.back.button"/> </a> </p>
 </body>
 </html>
