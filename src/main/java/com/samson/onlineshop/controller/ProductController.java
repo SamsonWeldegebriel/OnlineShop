@@ -82,7 +82,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/product")
-    public String getProductById(@RequestParam("id") String productId, Model model) {
+    public String getProductById(@RequestParam(value = "id", required = false) String productId, Model model) {
         Product product = productService.getProductById(productId);
         //Handle Exception when no product found with the specified ID.
         if (product == null) {
@@ -148,5 +148,13 @@ public class ProductController {
                 "condition", "productImage", "language");
 
     }
+
+
+    @RequestMapping("/products/invalidPromoCode")
+    public String invalidPromoCode() {
+        return "invalidPromoCode";
+    }
+
+
 
 }

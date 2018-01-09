@@ -2,6 +2,7 @@ package com.samson.onlineshop.config;
 
 import com.samson.onlineshop.domain.Product;
 import com.samson.onlineshop.interceptor.ProcessingTimeLogInterceptor;
+import com.samson.onlineshop.interceptor.PromoCodeInterceptor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -10,10 +11,12 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
@@ -49,6 +52,7 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("messages");
+        messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
 
@@ -103,19 +107,38 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
         return resolver;
     }
 
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+
         registry.addInterceptor(new ProcessingTimeLogInterceptor());
 
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
         localeChangeInterceptor.setParamName("language");
         registry.addInterceptor(localeChangeInterceptor);
+
+        registry.addInterceptor(promoCodeInterceptor()).addPathPatterns("/**/market/products/specialOffer");
+
     }
 
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver resolver = new SessionLocaleResolver();
         resolver.setDefaultLocale(new Locale("en"));
+        /*CookieLocaleResolver resolver = new CookieLocaleResolver();
+        resolver.setDefaultLocale(new Locale("en"));
+        resolver.setCookieName("myLocaleCookie");
+        resolver.setCookieMaxAge(4800);*/
         return resolver;
     }
+
+    @Bean
+    public HandlerInterceptor promoCodeInterceptor() {
+        PromoCodeInterceptor promoCodeInterceptor = new PromoCodeInterceptor();
+        promoCodeInterceptor.setPromoCode("offer");
+        promoCodeInterceptor.setOfferRedirect("market/products");
+        promoCodeInterceptor.setErrorRedirect("invalidPromoCode");
+        return promoCodeInterceptor;
+    }
+
 }

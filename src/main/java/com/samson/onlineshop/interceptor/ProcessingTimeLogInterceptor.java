@@ -1,7 +1,6 @@
 package com.samson.onlineshop.interceptor;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -9,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ProcessingTimeLogInterceptor implements HandlerInterceptor {
-    private static final Logger LOGGER = LogManager.getLogger(ProcessingTimeLogInterceptor.class);
+    private static final Logger LOGGER = Logger.getLogger(ProcessingTimeLogInterceptor.class);
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         long startTime = System.currentTimeMillis();

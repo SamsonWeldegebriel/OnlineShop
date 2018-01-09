@@ -12,7 +12,8 @@ public class DatabaseTesterApp {
         String jdbcusername = "root";
         String jdbcpassword = "root";
 
-        try {
+        try
+        {
             System.out.println("Connecting to database..");
             Connection  myConn = DriverManager.getConnection(jdbcurl, jdbcusername, jdbcpassword);
             System.out.println("Connection Successful!");

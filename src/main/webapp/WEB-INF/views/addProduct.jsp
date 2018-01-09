@@ -23,6 +23,10 @@
     </div>
 </section>
 
+<div>
+    <a href="<c:url value="/logout" />">Logout</a>
+</div>
+
 <form:form action="/market/addproduct" modelAttribute="newProduct" enctype="multipart/form-data">
     <fieldset>
         <legend>Add New Product</legend>
